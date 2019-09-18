@@ -84,7 +84,7 @@ namespace Agenda.Data.Repository
 
         public void Edit(TEntity entity)
         {
-            var pkey = entity.id;
+            var pkey = entity.Id;
 
             TEntity attachedEntity = _dbSet.Find(pkey); //Acessa a chave primaria
 

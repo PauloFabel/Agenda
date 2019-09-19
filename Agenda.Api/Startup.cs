@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Agenda.Api
 {
@@ -24,16 +23,10 @@ namespace Agenda.Api
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             DataStartup.ConfigureServices(services);
+            
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "APIAgenda", Version = "v1" }); });
         }
 
-        protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -44,6 +37,9 @@ namespace Agenda.Api
             }
 
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIAgenda"); });
+
         }
     }
 }

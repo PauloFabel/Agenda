@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Agenda.Data.Context;
+﻿using Agenda.Data.Context;
 using Agenda.Data.Domain;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Agenda.Data.Repository
 {
@@ -16,6 +13,10 @@ namespace Agenda.Data.Repository
         internal Contexto _context;
         internal DbSet<TEntity> _dbSet;
 
+        /// <summary>
+        /// Método que cria a tabela.
+        /// </summary>
+        /// <param name="context"></param>
         public RepositoryBase(Contexto context)
         {
             this._context = context;
@@ -23,7 +24,10 @@ namespace Agenda.Data.Repository
 
         }
 
-        //Método que adiciona um objeto.
+        /// <summary>
+        /// Método que adiciona um objeto.
+        /// </summary>
+        /// <param name="entity"></param>
 
         public void Add(TEntity entity)
         {
@@ -32,8 +36,10 @@ namespace Agenda.Data.Repository
 
         }
 
-        //Método que adiciona todos os objetos
-
+        /// <summary>
+        /// Método que adiciona uma lista de novos objetos ao banco de dados da aplicação.
+        /// </summary>
+        /// <param name="entity"></param>
         public void AddAll(List<TEntity> entity)
         {
 
@@ -47,7 +53,10 @@ namespace Agenda.Data.Repository
 
         }
 
+        /// <summary>
         /// Método que deleta um objeto no banco de dados da aplicação.
+        /// </summary>
+        /// <param name="entity"></param>
         public void Delete(TEntity entity)
         {
             if (_context.Entry(entity).State == EntityState.Detached)
@@ -60,6 +69,11 @@ namespace Agenda.Data.Repository
             _context.SaveChanges();
 
         }
+
+        /// <summary>
+        /// Método que deleta um ou varios objetos no banco de dados da aplicação, mediante uma expressão LINQ.
+        /// </summary>
+        /// <param name="filter"></param>
 
         public void DeleteAll(Expression<Func<TEntity, bool>> filter = null)
         {
@@ -75,6 +89,9 @@ namespace Agenda.Data.Repository
 
         }
 
+        /// <summary>
+        /// Método que limpa a memória.
+        /// </summary>
         public void Dispose()
         {
             _dbSet = null;
@@ -82,6 +99,10 @@ namespace Agenda.Data.Repository
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Método que atualiza um registro da tabela no banco de dados.
+        /// </summary>
+        /// <param name="entity"></param>
         public void Edit(TEntity entity)
         {
             var pkey = entity.Id;
@@ -98,6 +119,12 @@ namespace Agenda.Data.Repository
 
         }
 
+        /// <summary>
+        /// Método que busca uma lista de objetos no banco de dados da aplicação e retorna-a no tipo IEnumerable<TEntity>
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
         public virtual List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
 

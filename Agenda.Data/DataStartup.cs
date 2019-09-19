@@ -15,5 +15,14 @@ namespace Agenda.Data
                 //Pesquisa sobre isso
             });
         }
+
+        //protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    IConfigurationRoot configuration = new ConfigurationBuilder()
+        //        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+        //        .AddJsonFile("appsettings.json")
+        //        .Build();
+        //    optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        //}
     }
 }

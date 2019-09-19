@@ -11,9 +11,16 @@ namespace Agenda.Data.Context
 
         }
 
+        /// <summary>
+        /// Cria a Conexão
+        /// </summary>
+        /// <param name="options"></param>
         public Contexto(DbContextOptions options) : base(options)
         {
         }
+            /// <summary>
+            /// Cria a tabela
+            /// </summary>
             public DbSet<Pessoa> Pessoa { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

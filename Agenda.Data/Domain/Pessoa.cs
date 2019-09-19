@@ -1,10 +1,13 @@
 ﻿namespace Agenda.Data.Domain
 {
-    public class Pessoa:Base
+    public class Pessoa : Base
     {
-        public string Nome{ get; set;}
-        public string Cidade{ get; set;}
-        public string Estado{ get; set;}
+        /// <summary>
+        /// Métodos acessores.
+        /// </summary>
+        public string Nome { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
 
     }
 }

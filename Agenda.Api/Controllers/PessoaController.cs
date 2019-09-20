@@ -28,7 +28,6 @@ namespace WebApplication1.Controllers
         /// Busca todos os registros do banco de dados.
         /// </summary>
         /// <returns></returns>
-        // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Pessoa>> Get()
         {
@@ -36,13 +35,12 @@ namespace WebApplication1.Controllers
             return pessoas;
             // new string[] { "value1", "value2" };
         }
-        
+
         /// <summary>
         /// Retorna um registro do banco de dados.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Pessoa> Get(int id)
         {
@@ -61,7 +59,6 @@ namespace WebApplication1.Controllers
         /// POST
         /// </summary>
         /// <param name="pessoa"></param>
-        // POST api/values
         [HttpPost]
         public void Post([FromBody] Pessoa pessoa)
         {
@@ -74,13 +71,13 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="pessoa"></param>
-        // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
-               
+                NotFound();
+
             }
             var pes = _pessoaRepository.GetById(id);
             _pessoaRepository.Edit(pes);
@@ -91,7 +88,6 @@ namespace WebApplication1.Controllers
         /// Deleta um registro do banco de dados.
         /// </summary>
         /// <param name="id"></param>
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -23,7 +23,7 @@ namespace Agenda.Api
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvcCore().AddApiExplorer();
 
-            DataStartup.ConfigureServices(services);
+            DataStartup.ConfigureServices(services, Configuration);
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "APIAgenda", Version = "v1" }); });
         }

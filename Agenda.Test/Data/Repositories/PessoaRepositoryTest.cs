@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Agenda.Data.Repository;
 using Xunit;
-using Agenda.Data.Repository;
 
 namespace Sample.Teste.Data.Repositories
 {

@@ -3,7 +3,7 @@
     public class Base
     {
         /// <summary>
-        /// Métodos acessores
+        /// Métodos acessores.
         /// </summary>
         public int Id { get; set; }
 

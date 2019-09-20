@@ -73,8 +73,7 @@ namespace WebApplication1.Controllers
         {
             if (id != pessoa.Id)
             {
-                // return BadRequest();
-
+               
             }
             var pes = _pessoaRepository.GetById(id);
             _pessoaRepository.Edit(pes);

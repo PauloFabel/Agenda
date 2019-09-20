@@ -16,6 +16,7 @@ namespace Agenda.Data.Context
         /// </summary>
         /// <param name="options"></param>
         public Contexto(DbContextOptions options) : base(options)
+
         {
         }
 

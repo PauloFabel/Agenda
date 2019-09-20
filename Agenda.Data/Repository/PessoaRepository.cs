@@ -1,7 +1,6 @@
 ﻿using Agenda.Data.Context;
 using Agenda.Data.Domain;
 
-
 namespace Agenda.Data.Repository
 {
     public class PessoaRepository : RepositoryBase<Pessoa>, IPessoaRepository
@@ -22,13 +21,12 @@ namespace Agenda.Data.Repository
         /// <returns></returns>
         public Pessoa GetById(int id)
         {
-            var pessoa = _context.Find(p => p.id).select();
-            if (id != null)
+            var pessoa = _context.Pessoa.Find(id);
+            if (pessoa != null)
             {
-                return Pessoa;
+                return pessoa;
             }
-            return NotFound();
-
+            return null;
         }
 
 

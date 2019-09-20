@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
         }
 
         /// <summary>
-        /// Busca todos os registros do banco.
+        /// Busca todos os registros do banco de dados.
         /// </summary>
         /// <returns></returns>
         // GET api/values
@@ -36,7 +36,12 @@ namespace WebApplication1.Controllers
             return pessoas;
             // new string[] { "value1", "value2" };
         }
-
+        
+        /// <summary>
+        /// Retorna um registro do banco de dados.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Pessoa> Get(int id)
@@ -53,6 +58,7 @@ namespace WebApplication1.Controllers
 
         /// <summary>
         /// Método que adiciona uma pessoa ao banco.
+        /// POST
         /// </summary>
         /// <param name="pessoa"></param>
         // POST api/values
@@ -64,6 +70,7 @@ namespace WebApplication1.Controllers
 
         /// <summary>
         /// Fazer alteração de uma pessoa (update)
+        /// PUT
         /// </summary>
         /// <param name="id"></param>
         /// <param name="pessoa"></param>

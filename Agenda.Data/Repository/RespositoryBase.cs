@@ -14,7 +14,7 @@ namespace Agenda.Data.Repository
         internal DbSet<TEntity> _dbSet;
 
         /// <summary>
-        /// Método que cria a tabela.
+        /// Construtor.
         /// </summary>
         /// <param name="context"></param>
         public RepositoryBase(Contexto context)

@@ -13,7 +13,7 @@ namespace Agenda.Data.Configurations
         public void Configure(EntityTypeBuilder<Pessoa> builder)
         {
             //TABELA E MAPEAMENTO
-            builder.ToTable("pessoa");
+            builder.ToTable("pessoas");
             builder.Property(t => t.Id).HasColumnName("ID_PESSOA");
             builder.Property(t => t.Nome).HasColumnName("NOME");
             builder.Property(t => t.Cidade).HasColumnName("CIDADE");

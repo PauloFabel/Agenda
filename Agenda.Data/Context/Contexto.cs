@@ -1,4 +1,4 @@
-﻿using Agenda.Data.Configuration;
+﻿using Agenda.Data.Configurations;
 using Agenda.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +25,7 @@ namespace Agenda.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PessoaConfiguration());
+            modelBuilder.ApplyConfiguration(new PessoaConfigurations());
 
             base.OnModelCreating(modelBuilder);
         }

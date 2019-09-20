@@ -7,7 +7,7 @@ using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
-
+using Agenda.Data.Domain;
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
@@ -15,41 +15,82 @@ namespace WebApplication1.Controllers
     {
         private readonly IPessoaRepository _pessoaRepository;
 
+        /// <summary>
+        ///Construtor da Controller
+        /// </summary>
+        /// <param name="pessoaRepository"></param>
         public PessoaController(IPessoaRepository pessoaRepository)
         {
             _pessoaRepository = pessoaRepository;
         }
 
+        /// <summary>
+        /// Busca todos os registros do banco.
+        /// </summary>
+        /// <returns></returns>
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Pessoa>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var pessoas = _pessoaRepository.Get();
+            return pessoas;
+            // new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Pessoa> Get(int id)
         {
-            return "value";
+            var pessoa = _pessoaRepository.GetById(id);
+
+            if (pessoa == null)
+            {
+                return NotFound();
+            }
+            return pessoa;
+
         }
 
+        /// <summary>
+        /// Método que adiciona uma pessoa ao banco.
+        /// </summary>
+        /// <param name="pessoa"></param>
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Pessoa pessoa)
         {
+            _pessoaRepository.Add(pessoa);
         }
 
+        /// <summary>
+        /// Fazer alteração de uma pessoa (update)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pessoa"></param>
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Pessoa pessoa)
         {
+            if (id != pessoa.Id)
+            {
+                // return BadRequest();
+
+            }
+            var pes = _pessoaRepository.GetById(id);
+            _pessoaRepository.Edit(pes);
+
         }
 
+        /// <summary>
+        /// Deleta um registro do banco de dados.
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var pessoa = _pessoaRepository.GetById(id);
+            _pessoaRepository.Delete(pessoa);
         }
     }
 }

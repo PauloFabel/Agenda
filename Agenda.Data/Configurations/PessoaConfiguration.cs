@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Agenda.Data.Configuration
+namespace Agenda.Data.Configurations
 {
-    public class PessoaConfiguration : IEntityTypeConfiguration<Pessoa>
+    public class PessoaConfigurations : IEntityTypeConfiguration<Pessoa>
     {
         /// <summary>
         /// Método que faz o mapeamento das tabelas

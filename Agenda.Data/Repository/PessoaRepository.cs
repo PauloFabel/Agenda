@@ -1,29 +1,28 @@
 ﻿using Agenda.Data.Context;
 using Agenda.Data.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agenda.Data.Repository
 {
     public class PessoaRepository : RepositoryBase<Pessoa>, IPessoaRepository
     {
-        
+        Contexto _context;
+
         public PessoaRepository(Contexto context) : base(context)
         {
+            context = _context;
         }
 
         public Pessoa GetById(int id)
         {
-            if (id == 1)
+            var pessoa = _context.Find(p => p.id)
+            if (id != null)
             {
-                return new Pessoa
-                {
-                    Id = 1,
-                    Nome = "Teste"
-                };
-            }
 
+            }
             return null;
 
-         }
-     }
+        }
+    }
 }
 

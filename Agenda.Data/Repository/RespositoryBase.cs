@@ -28,7 +28,6 @@ namespace Agenda.Data.Repository
         /// Método que adiciona um objeto.
         /// </summary>
         /// <param name="entity"></param>
-
         public void Add(TEntity entity)
         {
             _dbSet.Add(entity);

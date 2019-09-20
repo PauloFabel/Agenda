@@ -1,6 +1,10 @@
 ﻿using Agenda.Data.Context;
 using Agenda.Data.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Configuration;
 
 namespace Agenda.Data
 {
@@ -10,10 +14,19 @@ namespace Agenda.Data
         {
             services.AddScoped<IPessoaRepository, PessoaRepository>();
 
-            services.AddDbContext<Contexto>(i =>
-            {
-                //Pesquisa sobre isso
-            });
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath("C:\\Users\\paulo\\source\\repos\\Agenda\\Agenda.Api")
+            .AddJsonFile("appsettings.json")
+            .Build();
+            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+
+            //services.AddDbContext<Contexto>(i =>
+            //{
+            //    i.
+
+            //});
         }
 
         //protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,7 +35,8 @@ namespace Agenda.Data
         //        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
         //        .AddJsonFile("appsettings.json")
         //        .Build();
-        //    optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        //        .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        //    
         //}
     }
 }

@@ -32,11 +32,16 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<Pessoa>), StatusCodes.Status200OK)]
         public ActionResult Get()
         {
             var pessoas = _pessoaRepository.Get();
 
+            if (pessoas == null)
+            {
+                NotFound();
+            }
             return Ok(pessoas);
         }
 
@@ -93,10 +98,16 @@ namespace WebApplication1.Controllers
         /// Deleta um registro do banco de dados.
         /// </summary>
         /// <param name="id"></param>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             var pessoa = _pessoaRepository.GetById(id);
+
+            if (pessoa == null)
+            {
+                NotFound();
+            }
             _pessoaRepository.Delete(pessoa);
         }
     }

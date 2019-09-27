@@ -104,18 +104,13 @@ namespace Agenda.Data.Repository
         /// <param name="entity"></param>
         public void Edit(TEntity entity)
         {
-            var pkey = entity.Id;
-
-            TEntity attachedEntity = _dbSet.Find(pkey); //Acessa a chave primaria
-
-            if (attachedEntity != null)
+            if (entity != null)
             {
-                _dbSet.Update(entity);
+               
+                    _dbSet.Update(entity);
+                                   
             }
-
-
             _context.SaveChanges();
-
         }
 
         /// <summary>

@@ -29,11 +29,12 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<Pessoa>> Get()
+        public List<Pessoa> Get()
         {
             var pessoas = _pessoaRepository.Get();
+
             return pessoas;
-            // new string[] { "value1", "value2" };
+                        
         }
 
         /// <summary>
@@ -41,46 +42,48 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public ActionResult<Pessoa> Get(int id)
+        [HttpGet("{Id}")]
+        public ActionResult Get(int Id)
         {
-            var pessoa = _pessoaRepository.GetById(id);
+            var pessoa = _pessoaRepository.GetById(Id);
 
             if (pessoa == null)
             {
-                return NotFound();
+
+                BadRequest();
+
             }
-            return pessoa;
+
+            return Ok(pessoa.Nome);
 
         }
 
         /// <summary>
         /// Método que adiciona uma pessoa ao banco.
-        /// POST
         /// </summary>
         /// <param name="pessoa"></param>
         [HttpPost]
-        public void Post([FromBody] Pessoa pessoa)
+        public void Post([Bind("Id,Nome,Cidade,Estado")] Pessoa pessoa)
         {
-            _pessoaRepository.Add(pessoa);
+            if (ModelState.IsValid)
+            {
+                _pessoaRepository.Add(pessoa);
+            }
+            else
+            {
+                BadRequest();
+            }
         }
 
         /// <summary>
         /// Fazer alteração de uma pessoa (update)
-        /// PUT
         /// </summary>
         /// <param name="id"></param>
         /// <param name="pessoa"></param>
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Pessoa pessoa)
+        [HttpPut("{Id}")]
+        public void Put([Bind("Nome,Cidade,Estado,Id")] Pessoa pessoa)
         {
-            if (id != pessoa.Id)
-            {
-                NotFound();
-
-            }
-            var pes = _pessoaRepository.GetById(id);
-            _pessoaRepository.Edit(pes);
+            _pessoaRepository.Edit(pessoa);
 
         }
 

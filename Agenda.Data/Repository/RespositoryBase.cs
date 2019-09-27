@@ -117,30 +117,19 @@ namespace Agenda.Data.Repository
         /// Método que busca uma lista de objetos no banco de dados da aplicação e retorna-a no tipo IEnumerable<TEntity>
         /// </summary>
         /// <param name="filter"></param>
-        /// <param name="orderBy"></param>
         /// <returns></returns>
-        public virtual List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+        public virtual List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
         {
 
             IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
             {
-
                 query = query.Where(filter);
-
             }
 
-            if (orderBy != null)
-            {
+            return query.ToList();
 
-                return orderBy(query).ToList();
-
-            }
-            else
-            {
-                return query.ToList();
-            }
         }
     }
 }

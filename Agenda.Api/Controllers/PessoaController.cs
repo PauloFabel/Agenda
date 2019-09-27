@@ -8,9 +8,12 @@ using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using Agenda.Data.Domain;
+using Microsoft.AspNetCore.Http;
+
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class PessoaController : ControllerBase
     {
         private readonly IPessoaRepository _pessoaRepository;
@@ -29,12 +32,12 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<Pessoa> Get()
+        [ProducesResponseType(typeof(List<Pessoa>), StatusCodes.Status200OK)]
+        public ActionResult Get()
         {
             var pessoas = _pessoaRepository.Get();
 
-            return pessoas;
-                        
+            return Ok(pessoas);
         }
 
         /// <summary>
@@ -43,19 +46,18 @@ namespace WebApplication1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{Id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Pessoa), StatusCodes.Status200OK)]
         public ActionResult Get(int Id)
         {
             var pessoa = _pessoaRepository.GetById(Id);
 
             if (pessoa == null)
             {
-
-                BadRequest();
-
+                NotFound();
             }
 
-            return Ok(pessoa.Nome);
-
+            return Ok(pessoa);
         }
 
         /// <summary>

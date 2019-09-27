@@ -20,9 +20,12 @@ namespace Agenda.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddMvcCore().AddApiExplorer();
+            services.AddMvcCore()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddApiExplorer();
 
+            services.AddMvc();
+            
             DataStartup.ConfigureServices(services, Configuration);
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "APIAgenda", Version = "v1" }); });

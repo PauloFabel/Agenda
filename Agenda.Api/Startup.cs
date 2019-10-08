@@ -25,10 +25,18 @@ namespace Agenda.Api
                 .AddApiExplorer();
 
             services.AddMvc();
-            
+                        
             DataStartup.ConfigureServices(services, Configuration);
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "APIAgenda", Version = "v1" }); });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:5000/api/Pessoa"));
+            });
         }
 
 
@@ -40,6 +48,8 @@ namespace Agenda.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(options => options.WithOrigins("https://localhost:5000/api/Pessoa"));
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIAgenda"); });

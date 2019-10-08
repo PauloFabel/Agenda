@@ -9,10 +9,12 @@ using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using Agenda.Data.Domain;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigin")]
     [Produces("application/json")]
     public class PessoaController : ControllerBase
     {
@@ -32,6 +34,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [EnableCors("AllowOrigin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<Pessoa>), StatusCodes.Status200OK)]
         public ActionResult Get()
@@ -51,6 +54,7 @@ namespace WebApplication1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{Id}")]
+        [EnableCors("AllowOrigin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Pessoa), StatusCodes.Status200OK)]
         public ActionResult Get(int Id)
@@ -70,6 +74,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="pessoa"></param>
         [HttpPost]
+        [EnableCors("AllowOrigin")]
         public void Post([Bind("Id,Nome,Cidade,Estado")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
@@ -88,6 +93,7 @@ namespace WebApplication1.Controllers
         /// <param name="id"></param>
         /// <param name="pessoa"></param>
         [HttpPut("{Id}")]
+        [EnableCors("AllowOrigin")]
         public void Put([Bind("Nome,Cidade,Estado,Id")] Pessoa pessoa)
         {
             _pessoaRepository.Edit(pessoa);
@@ -100,13 +106,14 @@ namespace WebApplication1.Controllers
         /// <param name="id"></param>
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
+        [EnableCors("AllowOrigin")]
         public void Delete(int id)
         {
             var pessoa = _pessoaRepository.GetById(id);
 
             if (pessoa == null)
             {
-                NotFound();
+                BadRequest();
             }
             _pessoaRepository.Delete(pessoa);
         }
